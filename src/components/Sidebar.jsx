@@ -1,0 +1,69 @@
+import React, { useContext } from "react";
+import { ThemeContext } from "../store/store";
+
+const Sidebar = ({ handleNewTask }) => {
+  const { darkMode, DarkModeToggle } = useContext(ThemeContext);
+  return (
+    <div
+      className={`border-r border-gray-200 fixed left-0 right-[80%] bottom-0 top-[10%] p-6 pl-5 ${
+        darkMode ? "bg-[#1b1b1b] text-white" : "bg-white"
+      }`}
+    >
+      <div className="flex sm:gap-4 items-center  justify-center sm:justify-start  text-[18px]  hover:bg-gray-200 py-3 sm:px-3 px-5 w-full rounded-md transistion-all duration-500">
+        <i class="fa-solid fa-house"></i>{" "}
+        <span
+          className={`font-semibold ${
+            darkMode ? "text-white" : "text-[#1b1b1b]"
+          } hidden sm:block`}
+        >
+          HOME
+        </span>
+      </div>
+      <div className="flex sm:gap-4 items-center justify-center sm:justify-start text-[18px] hover:bg-gray-200 py-3 sm:px-3 px-5 w-full my-3 rounded-md transistion-all duration-500">
+        <i class="fa-solid fa-folder"></i>{" "}
+        <span
+          className={`font-semibold ${
+            darkMode ? "text-white" : "text-[#1b1b1b]"
+          } hidden sm:block`}
+        >
+          FILE
+        </span>
+      </div>
+      <div
+        onClick={handleNewTask}
+        className="flex sm:gap-4 items-center justify-center sm:justify-start text-[18px] hover:bg-gray-200 py-3 sm:px-3 px-5 w-full my-3 rounded-md transistion-all duration-500"
+      >
+        <i class="fa-solid fa-circle-plus"></i>{" "}
+        <span
+          className={`font-semibold ${
+            darkMode ? "text-white" : "text-[#1b1b1b]"
+          } hidden sm:block`}
+        >
+          NEW
+        </span>
+      </div>
+      <div className="flex sm:gap-4 items-center justify-center sm:justify-start text-[18px] hover:bg-gray-200 py-3 sm:px-3 px-5  w-full my-3 rounded-md transistion-all duration-500">
+        <i class="fa-solid fa-envelope"></i>{" "}
+        <span
+          className={`font-semibold ${
+            darkMode ? "text-white" : "text-[#1b1b1b]"
+          } hidden sm:block`}
+        >
+          MESSAGE
+        </span>
+      </div>
+      <div className="flex sm:gap-4 items-center justify-center sm:justify-start text-[18px] hover:bg-gray-200 py-3 sm:px-3 px-5 w-full my-3 rounded-md transistion-all duration-500">
+        <i class="fa-solid fa-circle-user"></i>{" "}
+        <span
+          className={`font-semibold ${
+            darkMode ? "text-white" : "text-[#1b1b1b]"
+          } hidden sm:block`}
+        >
+          SETTING
+        </span>
+      </div>
+    </div>
+  );
+};
+
+export default Sidebar;
