@@ -1,12 +1,13 @@
 import React from "react";
 import { Route, Routes } from "react-router";
-import { Dashboard, Taskpage } from "./assets/assets";
+import { Dashboard, TaskDetail, Taskpage } from "./assets/assets";
 
 const App = () => {
   return (
     <div>
       <Routes>
         <Route path="/" element={<Dashboard />} />
+        <Route path="/task/:id" element={<TaskDetail />} />
       </Routes>
     </div>
   );

@@ -1,20 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 
 import { Navbar, Sidebar, Mainbar, Taskpage } from "../assets/assets";
+import { ThemeContext } from "../store/store";
 
 const Dashboard = () => {
-  const [cancelNewTask, setCancelNewTask] = useState(false);
-
-  const handleNewTask = () => {
-    setCancelNewTask((prev) => !prev);
-  };
-
+  const { cancelNewTask } = useContext(ThemeContext);
   return (
     <div>
       <Navbar />
-      <Sidebar handleNewTask={handleNewTask} />
+      <Sidebar />
       <Mainbar />
-      {cancelNewTask ? <Taskpage handleNewTask={handleNewTask} /> : ""}
+      {cancelNewTask ? <Taskpage /> : ""}
     </div>
   );
 };

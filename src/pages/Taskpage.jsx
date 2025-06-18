@@ -1,13 +1,23 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { ThemeContext } from "../store/store";
 
-const Taskpage = ({ handleNewTask }) => {
-  const [item, setItem] = useState("");
-  const { darkMode, DarkModeToggle } = useContext(ThemeContext);
+const Taskpage = () => {
+  const {
+    darkMode,
+    DarkModeToggle,
+    handleChangeTitle,
+    title,
+    priority,
+    handleAddTask,
+    setPriority,
+    handleNewTask,
+    description,
+    handleChangeDescription,
+  } = useContext(ThemeContext);
   return (
     <div className="z-20 fixed inset-0 backdrop-blur-xl flex items-center justify-center">
       <div
-        className={`border-gray-400 border p-6 rounded-lg max-h-[90vh] sm:w-[600px] w-[90%] overflow-y-scroll scroll-auto ${
+        className={`border-gray-400 border bg-[#1b1b1b] text-white p-6 rounded-lg max-h-[90vh] sm:w-[600px] w-[90%] overflow-y-scroll scroll-auto ${
           darkMode ? "bg-[#1b1b1b] text-white" : ""
         }`}
       >
@@ -17,9 +27,11 @@ const Taskpage = ({ handleNewTask }) => {
             <label className="font-medium text-md">Title:</label>
             <input
               className={` w-full px-3 py-2.5 outline-none rounded-md shadow-2xl ${
-                darkMode ? "bg-[#313131]" : "bg-gray-200"
+                darkMode ? "bg-[#313131]" : "bg-gray-200 text-[#313131]"
               }`}
               type="text"
+              value={title}
+              onChange={handleChangeTitle}
               placeholder="Enter task title"
             />
           </div>
@@ -27,11 +39,13 @@ const Taskpage = ({ handleNewTask }) => {
             <label className="font-medium text-md">Description:</label>
             <textarea
               className={`w-full min-h-[200px] px-3 py-2.5 outline-none rounded-md shadow-2xl ${
-                darkMode ? "bg-[#313131]" : "bg-gray-200"
+                darkMode ? "bg-[#313131]" : "bg-gray-200 text-[#313131]"
               }`}
               name=""
               id=""
               placeholder="Enter task description"
+              value={description}
+              onChange={handleChangeDescription}
             ></textarea>
           </div>
           <div className="flex flex-row gap-4 my-3">
@@ -39,49 +53,49 @@ const Taskpage = ({ handleNewTask }) => {
               <label className="font-medium text-md">Due date:</label>
               <input
                 className={`w-full px-3 py-2.5 outline-none rounded-md shadow-sm ${
-                  darkMode ? "bg-[#313131]" : "bg-gray-200"
+                  darkMode ? "bg-[#313131]" : "bg-gray-200 text-[#313131]"
                 }`}
                 type="date"
                 placeholder="Enter task title"
               />
             </div>
             <div>
-              <label className="font-medium text-md">Estimate task:</label>
+              <label className="font-medium text-md">Duration(hrs)</label>
               <input
                 className={`w-full px-3 py-2.5 outline-none rounded-md shadow-2xl ${
-                  darkMode ? "bg-[#313131]" : "bg-gray-200"
+                  darkMode ? "bg-[#313131]" : "bg-gray-200 text-[#313131]"
                 }`}
-                type="time"
-                placeholder="Enter task title"
+                type="number"
+                placeholder=""
               />
             </div>
           </div>
           <label className="font-medium mt-2">Priority:</label>
           <div
             className={` w-full px-2 py-1 outline-none rounded-md mt-1 flex flex-row justify-between gap-2 ${
-              darkMode ? "bg-[#313131]" : "bg-gray-200"
+              darkMode ? "bg-[#313131]" : "bg-gray-200 text-[#313131]"
             }`}
           >
             <div
-              onClick={() => setItem("Low")}
+              onClick={() => setPriority("Low")}
               className={`cursor-pointer flex-1 hover:bg-[#b5cff8] hover:text-[#1b1b1b] font-semibold py-1 text-center rounded-md transition-all duration-500 ${
-                item === "Low" ? "bg-[#b5cff8]" : ""
+                priority === "Low" ? "bg-[#b5cff8]" : ""
               }`}
             >
               Low
             </div>
             <div
-              onClick={() => setItem("Medium")}
+              onClick={() => setPriority("Medium")}
               className={`cursor-pointer flex-1 hover:bg-[#b5cff8] hover:text-[#1b1b1b] font-semibold py-1 text-center rounded-md transition-all duration-500 ${
-                item === "Medium" ? "bg-[#b5cff8]" : ""
+                priority === "Medium" ? "bg-[#b5cff8]" : ""
               }`}
             >
               Medium
             </div>
             <div
-              onClick={() => setItem("High")}
+              onClick={() => setPriority("High")}
               className={`cursor-pointer flex-1 hover:bg-[#b5cff8] hover:text-[#1b1b1b] font-semibold py-1 text-center rounded-md transition-all duration-500 ${
-                item === "High" ? "bg-[#b5cff8]" : ""
+                priority === "High" ? "bg-[#b5cff8]" : ""
               }`}
             >
               High
@@ -94,7 +108,10 @@ const Taskpage = ({ handleNewTask }) => {
             >
               Cancel
             </button>
-            <button className="border rounded-md px-6 py-2 text-green-500 hover:bg-green-500 hover:text-white hover:border-green-500 font-semibold transition-all duration-500">
+            <button
+              onClick={handleAddTask}
+              className="border rounded-md px-6 py-2 text-green-500 hover:bg-green-500 hover:text-white hover:border-green-500 font-semibold transition-all duration-500"
+            >
               Save
             </button>
           </div>
