@@ -13,6 +13,8 @@ const Taskpage = () => {
     handleNewTask,
     description,
     handleChangeDescription,
+    dueHour,
+    handleDueHour,
   } = useContext(ThemeContext);
   return (
     <div className="z-20 fixed inset-0 backdrop-blur-xl flex items-center justify-center">
@@ -66,7 +68,9 @@ const Taskpage = () => {
                   darkMode ? "bg-[#313131]" : "bg-gray-200 text-[#313131]"
                 }`}
                 type="number"
-                placeholder=""
+                placeholder="Enter hrs to be spent"
+                value={dueHour}
+                onChange={handleDueHour}
               />
             </div>
           </div>

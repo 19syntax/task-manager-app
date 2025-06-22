@@ -17,22 +17,32 @@ export const ThemeProvider = ({ children }) => {
   const curDay = d.getDate();
   const curMonth = months[d.getMonth()];
 
+  function persistDate(newList) {
+    localStorage.setItem("todos", JSON.stringify({ todos: newList }));
+  }
+
   const handleNewTask = () => {
     setCancelNewTask((prev) => !prev);
   };
 
   const handleAddTask = (e) => {
     e.preventDefault();
-    const newTask = task.concat({ title, description, priority });
+    const newTask = task.concat({ title, description, priority, dueHour });
 
+    persistDate(newTask);
     setTitle("");
+    setDescription("");
+    setPriority("");
     setTask(newTask);
     handleNewTask(true);
   };
+
   const handleChangeTitle = (e) => {
     setTitle(e.target.value);
   };
-
+  const handleDueHour = (e) => {
+    setDueHour(e.target.value);
+  };
   const handleChangeDescription = (e) => {
     setDescription(e.target.value);
   };
@@ -45,6 +55,7 @@ export const ThemeProvider = ({ children }) => {
       return todoIndex !== index;
     });
     setTask(newTodoList);
+    persistDate(newTodoList);
   }
 
   return (
@@ -67,6 +78,7 @@ export const ThemeProvider = ({ children }) => {
         curMonth,
         dueHour,
         handleDelete,
+        handleDueHour,
       }}
     >
       {children}

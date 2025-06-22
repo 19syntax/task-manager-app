@@ -4,7 +4,7 @@ import { Navbar, Sidebar, Mainbar, Taskpage } from "../assets/assets";
 import { useParams } from "react-router";
 
 const TaskDetail = () => {
-  const { darkMode, task } = useContext(ThemeContext);
+  const { darkMode, task, dueHour } = useContext(ThemeContext);
   const { id } = useParams();
   const newDate = new Date();
   const creationDate = newDate.toDateString();
@@ -36,7 +36,7 @@ const TaskDetail = () => {
             }`}
           >
             <p className="font-semibold">Deadline:</p>
-            <p>October 30, 2024</p>
+            <p>In {dueHour} hours</p>
           </div>
         </div>
         <div
