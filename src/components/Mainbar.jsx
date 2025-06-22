@@ -4,7 +4,9 @@ import { ThemeContext } from "../store/store";
 import { Link } from "react-router";
 
 const Mainbar = () => {
-  const { darkMode, DarkModeToggle, task } = useContext(ThemeContext);
+  const { darkMode, DarkModeToggle, task, curDay, curMonth, handleDelete } =
+    useContext(ThemeContext);
+
   return (
     <div
       className={`sm:py-10 sm:px-10 px-3 py-3 absolute left-[15%] right-[2%] sm:right-[0] bottom-0 top-[10%] overflow-y-scroll overflow-x-hidden ${
@@ -18,11 +20,8 @@ const Mainbar = () => {
       ) : (
         <div className="grid sm:grid-cols-3 grid-rows-1 gap-5 pb-5">
           {task.map((item, index) => (
-            <Link to={`/task/${index}`}>
-              <div
-                key={index}
-                className="p-4 bg-[#b5cff8] text-[#1b1b1b] rounded-md w-full"
-              >
+            <Link key={index} to={`/task/${index}`}>
+              <div className="p-4 bg-[#b5cff8] text-[#1b1b1b] rounded-md w-full">
                 <div className="flex justify-between">
                   <p
                     className={`py-1 px-4 rounded-full sm:px-5 uppercase ${
@@ -37,7 +36,10 @@ const Mainbar = () => {
                   {item.title}
                 </h3>
                 <span className="flex gap-3 items-center">
-                  <i class="fa-solid fa-calendar-days"></i> <span>16 Feb</span>
+                  <i class="fa-solid fa-calendar-days"></i>{" "}
+                  <span>
+                    {curDay} {curMonth}
+                  </span>
                 </span>
                 <div className="flex justify-between items-center mt-3">
                   <img
@@ -47,7 +49,13 @@ const Mainbar = () => {
                   />
                   <div className="flex gap-5">
                     <i class="fa-solid fa-pen-to-square cursor-pointer"></i>
-                    <i class="fa-solid fa-trash cursor-pointer"></i>
+                    <i
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleDelete(index);
+                      }}
+                      class="fa-solid fa-trash cursor-pointer"
+                    ></i>
                   </div>
                 </div>
               </div>

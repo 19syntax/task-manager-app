@@ -1,4 +1,5 @@
 import React, { createContext, useState } from "react";
+import { months } from "../assets/assets";
 
 export const ThemeContext = createContext();
 
@@ -9,9 +10,12 @@ export const ThemeProvider = ({ children }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
+  const [dueHour, setDueHour] = useState("");
   const [task, setTask] = useState([]);
+
+  const d = new Date();
+  const curDay = d.getDate();
+  const curMonth = months[d.getMonth()];
 
   const handleNewTask = () => {
     setCancelNewTask((prev) => !prev);
@@ -19,7 +23,7 @@ export const ThemeProvider = ({ children }) => {
 
   const handleAddTask = (e) => {
     e.preventDefault();
-    const newTask = task.concat({ title, priority });
+    const newTask = task.concat({ title, description, priority });
 
     setTitle("");
     setTask(newTask);
@@ -35,6 +39,13 @@ export const ThemeProvider = ({ children }) => {
   const DarkModeToggle = () => {
     setDarkMode((prev) => !prev);
   };
+
+  function handleDelete(index) {
+    const newTodoList = task.filter((todo, todoIndex) => {
+      return todoIndex !== index;
+    });
+    setTask(newTodoList);
+  }
 
   return (
     <ThemeContext.Provider
@@ -52,6 +63,10 @@ export const ThemeProvider = ({ children }) => {
         setDescription,
         handleNewTask,
         cancelNewTask,
+        curDay,
+        curMonth,
+        dueHour,
+        handleDelete,
       }}
     >
       {children}
